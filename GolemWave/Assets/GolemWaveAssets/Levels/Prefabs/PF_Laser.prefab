@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4347779219737776022}
   m_Layer: 2
-  m_Name: Laser
+  m_Name: PF_Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
