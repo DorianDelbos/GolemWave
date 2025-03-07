@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Transform lookAtTarget;
 
+    [SerializeField] PlayerActions playerActions;
+
     Vector2 playerDirectionInput;
     Rigidbody rb;
 
@@ -19,8 +21,8 @@ public class PlayerMovement : MonoBehaviour
     {
         playerControls = new InputSystem_Actions();
         rb = GetComponent<Rigidbody>();
-        rb.useGravity = false; // D�sactiver la gravit� Unity
-        rb.constraints = RigidbodyConstraints.FreezeRotation; // Emp�cher les rotations physiques
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     void Start()
@@ -28,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
         playerControls.Player.Move.started += OnMovementAction;
         playerControls.Player.Move.performed += OnMovementAction;
         playerControls.Player.Move.canceled += OnMovementAction;
+
+        playerActions = GetComponent<PlayerActions>();
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -41,10 +45,13 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = ConvertToCameraSpace(new Vector3(playerDirectionInput.x, 0, playerDirectionInput.y));
         moveDirection = Vector3.ProjectOnPlane(moveDirection, gravityDirection).normalized;
 
-        if (moveDirection.magnitude > 0.1f)
+        if (!playerActions.IsShooting)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, -gravityDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            if (moveDirection.magnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection, -gravityDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
         }
 
         rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
@@ -77,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        centerOfGravity = other.transform.parent.position;
+        if (other.CompareTag("GravityZone"))
+        {
+            centerOfGravity = other.transform.parent.position;
+        }
     }
 }
