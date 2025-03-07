@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3018269257620528559}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3842585178594616244, guid: 20d6f5e087c635b44bcb18c64fcd63e0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f06acb4eeaf3b44aae983c8c0f8baf2, type: 2}
     - target: {fileID: -463163709454524880, guid: 20d6f5e087c635b44bcb18c64fcd63e0, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -156,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model
       objectReference: {fileID: 0}
+    - target: {fileID: 1053619697597103133, guid: 20d6f5e087c635b44bcb18c64fcd63e0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 77a5d29110d5bd141920e78b7dadff96, type: 2}
     - target: {fileID: 8879528566716807029, guid: 20d6f5e087c635b44bcb18c64fcd63e0, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
