@@ -315,7 +315,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 0
-  textHolderPrefab: {fileID: 218663217680152896, guid: 0f345ce3bf4764a479a4196c2b40c570, type: 3}
   speed: 5
   rotationSpeed: 10
   lookAtTarget: {fileID: 7055798633143984845}
