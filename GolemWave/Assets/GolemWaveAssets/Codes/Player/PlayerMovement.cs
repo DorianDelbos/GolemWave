@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
         playerControls.Player.Move.performed += OnMovementAction;
         playerControls.Player.Move.canceled += OnMovementAction;
 
+        playerControls.Player.Jump.started += OnJumpAction;
+
         playerActions = GetComponent<PlayerActions>();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -88,5 +90,10 @@ public class PlayerMovement : MonoBehaviour
         {
             centerOfGravity = other.transform.parent.position;
         }
+    }
+
+    void OnJumpAction(InputAction.CallbackContext ctx)
+    {
+        rb.AddForce(transform.up * 10f);
     }
 }

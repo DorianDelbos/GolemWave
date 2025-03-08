@@ -36,7 +36,8 @@ public class PlayerActions : MonoBehaviour
     {
         if (IsShooting && laser != null)
         {
-            Vector3 shootDirection = GetShootDirection();
+            //Vector3 shootDirection = GetShootDirection();
+            Vector3 shootDirection = Camera.main.transform.forward;
             laser.transform.forward = shootDirection;
 
             Vector3 newForward = Vector3.Lerp(transform.forward, shootDirection, 20f * Time.deltaTime);
@@ -47,16 +48,16 @@ public class PlayerActions : MonoBehaviour
 
     Vector3 GetShootDirection()
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // Centre de l'écran
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            return (hit.point - laserSpawn.position).normalized; // Direction vers l'impact
+            return (hit.point - laserSpawn.position).normalized;
         }
         else
         {
-            return Camera.main.transform.forward; // Direction de la caméra si rien n'est touché
+            return Camera.main.transform.forward;
         }
     }
 
