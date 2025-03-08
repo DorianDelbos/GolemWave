@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 1149733350236421411}
   - component: {fileID: 1775030657690860424}
   - component: {fileID: 5695332428526460831}
+  - component: {fileID: 7014987685515166503}
   m_Layer: 2
   m_Name: PF_Player
   m_TagString: Player
@@ -315,12 +316,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 100
-  speed: 5
   jumpForce: 12
-  rotationSpeed: 10
-  lookAtTarget: {fileID: 7055798633143984845}
   laserTransform: {fileID: 156103252073759764}
   headTransform: {fileID: 4611321251998000616}
+--- !u!114 &7014987685515166503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423933953829135075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15618afa1fff4904aa0b0b98f43fcd3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotationSpeed: 10
+  lookAtTarget: {fileID: 7055798633143984845}
 --- !u!1 &703850739703781649
 GameObject:
   m_ObjectHideFlags: 0
