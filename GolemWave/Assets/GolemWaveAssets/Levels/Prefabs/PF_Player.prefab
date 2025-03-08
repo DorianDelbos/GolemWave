@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 0
   speed: 5
-  jumpForce: 8
+  jumpForce: 12
   rotationSpeed: 10
   lookAtTarget: {fileID: 7055798633143984845}
   laserTransform: {fileID: 156103252073759764}
