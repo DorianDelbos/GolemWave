@@ -7,8 +7,9 @@ namespace GolemWave
     public partial class Player
     {
         [Header("Movement")]
-        [SerializeField] private float speed = 5f;
-        [SerializeField] private float rotationSpeed = 10f;
+        [SerializeField] private float speed = 5.0f;
+        [SerializeField] private float jumpForce = 12.0f;
+        [SerializeField] private float rotationSpeed = 10.0f;
         [SerializeField] private Transform lookAtTarget;
 
         private Rigidbody rb;
@@ -53,8 +54,7 @@ namespace GolemWave
             }
 
             rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
-
-            rb.linearVelocity = gravityDirection * 9.81f;
+            rb.AddForce(gravityDirection * 9.81f, ForceMode.Force);
         }
 
         private void GravityHandle(Collider other)
@@ -70,7 +70,8 @@ namespace GolemWave
 
         void ReadJump(InputAction.CallbackContext ctx)
         {
-            rb.AddForce(transform.up * 4f, ForceMode.Impulse);
+            if (!Physics.Raycast(transform.position, Vector3.down, 0.5f)) return;
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
     }
 }
