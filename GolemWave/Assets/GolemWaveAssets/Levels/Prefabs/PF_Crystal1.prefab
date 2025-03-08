@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96c6f517a9294b439b08912eaa58336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 30
+  initialHealth: 200
   healthBar: {fileID: 6285053189654475780}
 --- !u!1001 &6427408080922663271
 PrefabInstance:
@@ -130,19 +130,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9989707
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.0068567856
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.0004589036
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.044838514
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_AnchoredPosition.x
