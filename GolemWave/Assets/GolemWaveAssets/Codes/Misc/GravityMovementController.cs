@@ -11,7 +11,6 @@ namespace GolemWave
 
         private Rigidbody rb;
         private Transform currentGravityZone = null;
-        private Transform lockedGravityZone = null;
         private float gravityForce = 3.0f;
 
         public Vector3 CenterOfGravity { get; private set; }
