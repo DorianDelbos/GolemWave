@@ -1,10 +1,9 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CrystalDamage : MonoBehaviour, IDamageable
+public class EnemyStats : MonoBehaviour, IDamageable
 {
-    [SerializeField] int hp;
+    [SerializeField] float hp;
     float maxHealth;
 
     [SerializeField] Image healthBarForeground;
@@ -22,7 +21,7 @@ public class CrystalDamage : MonoBehaviour, IDamageable
     {
         maxHealth = hp;
 
-        if (!healthBarForeground) Debug.LogError("incorrect Crystal");
+        if (!healthBarForeground) Debug.LogError("incorrect ennemy");
     }
 
     private void Start()
