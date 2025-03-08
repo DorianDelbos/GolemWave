@@ -36,8 +36,9 @@ public class PlayerActions : MonoBehaviour
     {
         if (IsShooting && laser != null)
         {
-            //Vector3 shootDirection = GetShootDirection();
-            Vector3 shootDirection = Camera.main.transform.forward;
+            Vector3 shootDirection = GetShootDirection();
+
+            shootDirection.Normalize();
             laser.transform.forward = shootDirection;
 
             Vector3 newForward = Vector3.Lerp(transform.forward, shootDirection, 20f * Time.deltaTime);
@@ -48,18 +49,20 @@ public class PlayerActions : MonoBehaviour
 
     Vector3 GetShootDirection()
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit hit;
+        Plane plane = new Plane(-Camera.main.transform.forward,transform.position + Camera.main.transform.forward * 6);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+        float distance;
+        if (plane.Raycast(ray, out distance))
         {
-            return (hit.point - laserSpawn.position).normalized;
+            Vector3 hitPoint = ray.GetPoint(distance);
+            return (hitPoint - laser.transform.position).normalized;
         }
-        else
-        {
-            return Camera.main.transform.forward;
-        }
+
+        return Camera.main.transform.forward;
     }
+
 
     private void OnEnable()
     {
