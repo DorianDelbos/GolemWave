@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float rotationSpeed = 10f;
 
     [SerializeField] Transform lookAtTarget;
-
     [SerializeField] PlayerActions playerActions;
 
     Vector2 playerDirectionInput;
@@ -21,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerControls = new InputSystem_Actions();
         rb = GetComponent<Rigidbody>();
-        //rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
@@ -40,25 +38,37 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        lookAtTarget.transform.rotation = Quaternion.identity;
-
         Vector3 gravityDirection = Vector3.down;
-
-        Vector3 moveDirection = ConvertToCameraSpace(new Vector3(playerDirectionInput.x, 0, playerDirectionInput.y));
-        moveDirection = Vector3.ProjectOnPlane(moveDirection, gravityDirection).normalized;
-
-        if (!playerActions.IsShooting)
+        if (centerOfGravity != Vector3.zero)
         {
-            if (moveDirection.magnitude > 0.1f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection, -gravityDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }
+            gravityDirection = (centerOfGravity - transform.position).normalized;
+        }
+        Vector3 gravityUp = -gravityDirection;
+
+        lookAtTarget.transform.up = Vector3.Lerp(lookAtTarget.transform.up, gravityUp, 0.02f * Time.deltaTime);
+
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        //if (Mathf.Abs(Vector3.Dot(cameraForward, gravityUp)) > 0.9f)
+        //{
+        //    cameraForward = Vector3.Cross(gravityUp, cameraRight).normalized;
+        //}
+
+        cameraForward = Vector3.ProjectOnPlane(cameraForward, gravityUp).normalized;
+        cameraRight = Vector3.ProjectOnPlane(cameraRight, gravityUp).normalized;
+
+        Vector3 moveDirection = (cameraForward * playerDirectionInput.y) + (cameraRight * playerDirectionInput.x);
+
+        if (moveDirection.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, -gravityDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
 
-        //rb.linearVelocity = gravityDirection * 9.81f;
+        rb.linearVelocity = gravityDirection * 9.81f;
     }
 
 
@@ -68,20 +78,6 @@ public class PlayerMovement : MonoBehaviour
     void OnMovementAction(InputAction.CallbackContext ctx)
     {
         playerDirectionInput = playerControls.Player.Move.ReadValue<Vector2>();
-    }
-
-    private Vector3 ConvertToCameraSpace(Vector3 inputVector)
-    {
-        Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 cameraRight = Camera.main.transform.right;
-
-        cameraForward.y = 0;
-        cameraRight.y = 0;
-
-        cameraForward.Normalize();
-        cameraRight.Normalize();
-
-        return cameraForward * inputVector.z + cameraRight * inputVector.x;
     }
 
     private void OnTriggerEnter(Collider other)
