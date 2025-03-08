@@ -15,6 +15,7 @@ namespace GolemWave
 
         float initialSpeed;
         float speedCoeff = 1f;
+        Quaternion targetRunRot = Quaternion.identity;
 
         private void InitializeMovement()
         {
@@ -31,6 +32,8 @@ namespace GolemWave
             controller.Speed = initialSpeed * speedCoeff;
             controller.MovementDirection = playerDirectionInput;
             controller.ApplyMovement();
+
+            bodyTransform.localRotation = Quaternion.Lerp(bodyTransform.localRotation, targetRunRot, 20f * Time.deltaTime);
         }
 
         private void ReadMovement(InputAction.CallbackContext ctx)
@@ -46,12 +49,13 @@ namespace GolemWave
 
         private void StartRun(InputAction.CallbackContext ctx)
         {
-            bodyTransform.localRotation = Quaternion.Euler(bodyTransform.localRotation.x, bodyTransform.localRotation.y, -30f);
+            targetRunRot = Quaternion.Euler(bodyTransform.localRotation.x, bodyTransform.localRotation.y, -30f);
             speedCoeff = 1.3f;
         }
+
         private void EndRun(InputAction.CallbackContext ctx)
         {
-            bodyTransform.localRotation = Quaternion.identity;
+            targetRunRot = Quaternion.identity;
             speedCoeff = 1f;
         }
     }

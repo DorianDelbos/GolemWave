@@ -23,7 +23,7 @@ namespace GolemWave
 
         private void Start()
         {
-            //Time.timeScale = .5f;
+
         }
 
         private void Update()

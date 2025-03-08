@@ -36,7 +36,6 @@ namespace GolemWave
 
             controller.ApplyMovement();
 
-
             newTargetTimer -= Time.deltaTime;
 
             if (posToPlayer.sqrMagnitude <= 3 * 3)
@@ -50,17 +49,11 @@ namespace GolemWave
                 }
 
                 headTransform.rotation = Quaternion.Lerp(headTransform.rotation, Quaternion.LookRotation(targetPoint - transform.position, transform.up) * Quaternion.Euler(0, -90, 0), 4f * Time.deltaTime);
-
-                //Quaternion newHeadRot = Quaternion.LookRotation(targetPoint - transform.position, transform.up) * Quaternion.Euler(0, -90, 0);
-                //headTransform.rotation = newHeadRot;
             }
             else
             {
                 if (newTargetTimer <= 0)
                     laserTransform.gameObject.SetActive(false);
-
-                //rb.MovePosition(transform.position + posToPlayer.normalized * 20f * Time.deltaTime);
-                //headTransform.localRotation = Quaternion.Lerp(headTransform.localRotation, Quaternion.identity, 20f * Time.deltaTime);
             }
         }
 
