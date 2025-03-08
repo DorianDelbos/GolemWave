@@ -60,7 +60,7 @@ namespace GolemWave
             cameraForward = Vector3.ProjectOnPlane(cameraForward, gravityUp).normalized;
             cameraRight = Vector3.ProjectOnPlane(cameraRight, gravityUp).normalized;
 
-            // Calcule la direction de mouvement (corrigée pour suivre la pente)
+            // Calcule la direction de mouvement
             Vector3 moveDirection = (cameraForward * playerDirectionInput.y) + (cameraRight * playerDirectionInput.x);
 
             if (moveDirection.magnitude > 0.1f)
@@ -71,10 +71,7 @@ namespace GolemWave
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
 
-            // Applique le mouvement corrigé
             rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
-
-            // Applique la gravité corrigée
             rb.AddForce(gravityDirection.normalized * 9.81f * 0.3f, ForceMode.Force);
 
             UpdatePlayerRotation();
