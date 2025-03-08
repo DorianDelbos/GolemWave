@@ -20,6 +20,7 @@ namespace GolemWave
             inputs.Player.Attack.canceled += ReadShoot;
             inputs.Player.Sprint.started += StartRun;
             inputs.Player.Sprint.canceled += EndRun;
+            inputs.Player.Pause.started += pauseMenu.Toggle;
         }
 
         private void DisableInputs()
@@ -31,6 +32,7 @@ namespace GolemWave
             inputs.Player.Jump.started -= ReadJump;
             inputs.Player.Attack.started -= ReadShoot;
             inputs.Player.Attack.canceled -= ReadShoot;
+            inputs.Player.Pause.started -= pauseMenu.Toggle;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace GolemWave
 
         private void ReadShoot(InputAction.CallbackContext ctx)
         {
-            isShooting = ctx.ReadValueAsButton();
+            isShooting = ctx.ReadValueAsButton() && Time.timeScale > 0;
         }
 
         private void UpdateLaser()

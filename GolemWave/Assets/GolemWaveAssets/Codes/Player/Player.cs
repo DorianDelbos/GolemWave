@@ -4,6 +4,8 @@ namespace GolemWave
 {
     public partial class Player : MonoBehaviour, IDamageable
     {
+        [SerializeField] private PauseMenu pauseMenu;
+
         private void Awake()
         {
             InitializeHealth();
