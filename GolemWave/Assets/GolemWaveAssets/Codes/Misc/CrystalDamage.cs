@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace GolemWave
 {
@@ -7,13 +8,22 @@ namespace GolemWave
         [SerializeField] private int initialHealth;
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private TextHolder textHolderPrefab;
+        private float dissolveDuration = 5.0f;
+        private string cutoffProperty = "_Cutoff_Height";
+
         private HealthComponent healthComponent;
+        private Material material;
 
         public int Health { get => healthComponent.Health; set => healthComponent.Health = value; }
 
         private void Awake()
         {
             healthComponent = new HealthComponent(initialHealth);
+            Renderer renderer = GetComponentInChildren<Renderer>();
+            if (renderer != null)
+            {
+                material = renderer.material; // Get the material instance
+            }
         }
 
         private void OnEnable()
@@ -37,6 +47,29 @@ namespace GolemWave
 
         public void Death()
         {
+            StartCoroutine(DissolveAndDestroy());
+        }
+
+        private IEnumerator DissolveAndDestroy()
+        {
+            if (material == null)
+            {
+                Destroy(gameObject);
+                yield break;
+            }
+
+            float elapsedTime = 0f;
+            float startValue = material.GetFloat(cutoffProperty);
+            float endValue = -5.0f; // Adjust this based on your shader's behavior
+
+            while (elapsedTime < dissolveDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float lerpValue = Mathf.Lerp(startValue, endValue, elapsedTime / dissolveDuration);
+                material.SetFloat(cutoffProperty, lerpValue);
+                yield return null;
+            }
+
             Destroy(gameObject);
         }
     }
