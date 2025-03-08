@@ -41,5 +41,10 @@ namespace GolemWave
         {
             GravityHandle(other);
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            GravityZoneExit(other);
+        }
     }
 }

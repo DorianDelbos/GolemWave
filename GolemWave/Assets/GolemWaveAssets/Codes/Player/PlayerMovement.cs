@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,12 @@ namespace GolemWave
         private Vector3 centerOfGravity;
         Vector3 gravityDirection;
 
+        Transform currentGravityZone = null;
+        Transform lockedGravityZone = null;
+
+        Vector3 tempGravityCenter = Vector3.zero;
+
+
         private void InitializeMovement()
         {
             rb = GetComponent<Rigidbody>();
@@ -34,7 +41,11 @@ namespace GolemWave
             }
             else
             {
-                gravityDirection = centerOfGravity == Vector3.zero ? Vector3.down : centerOfGravity - transform.position;
+                if (tempGravityCenter != Vector3.zero)
+                {
+                    gravityDirection = (transform.position - tempGravityCenter).normalized;
+                }
+                else gravityDirection = centerOfGravity == Vector3.zero ? Vector3.down : (centerOfGravity - transform.position).normalized;
             }
 
             Vector3 gravityUp = -gravityDirection;
@@ -67,15 +78,31 @@ namespace GolemWave
             rb.AddForce(gravityDirection.normalized * 9.81f * 0.3f, ForceMode.Force);
 
             UpdatePlayerRotation();
+
+            if (!Physics.Raycast(transform.position, -transform.up, out hit, 0.5f) && tempGravityCenter != Vector3.zero) tempGravityCenter = Vector3.zero;
         }
 
-        private void GravityHandle(Collider other)
+        private void GravityHandle(Collider other) // Enter
         {
             if (!other.CompareTag("GravityZone")) return;
 
-            Debug.Log(other.name);
+            if (currentGravityZone)
+            {
+                GameObject go = currentGravityZone.gameObject;
+                StartCoroutine(Maxipute(go));
+            }
 
+            currentGravityZone = other.transform;
+            currentGravityZone.gameObject.SetActive(false);
             centerOfGravity = other.transform.position;
+        }
+
+        private void GravityZoneExit(Collider other)
+        {
+            //if (other == lockedGravityZone)
+            //{
+            //    lockedGravityZone = currentGravityZone;
+            //}
         }
 
         void ReadMovement(InputAction.CallbackContext ctx)
@@ -85,8 +112,11 @@ namespace GolemWave
 
         void ReadJump(InputAction.CallbackContext ctx)
         {
-            if (!Physics.Raycast(transform.position, -transform.up, 0.5f)) return;
+            RaycastHit hit;
+            if (!Physics.Raycast(transform.position, -transform.up, out hit, 0.5f)) return;
+
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            tempGravityCenter = hit.point;
         }
 
         Vector3 hitPoint;
@@ -109,6 +139,13 @@ namespace GolemWave
         private void OnDrawGizmos()
         {
             Gizmos.DrawSphere(hitPoint, 0.1f);
+        }
+
+        IEnumerator Maxipute(GameObject pute)
+        {
+            yield return new WaitForSeconds(1f);
+
+            pute.SetActive(true);
         }
     }
 }
