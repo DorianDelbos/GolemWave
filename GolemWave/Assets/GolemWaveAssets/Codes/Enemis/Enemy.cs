@@ -11,10 +11,13 @@ namespace GolemWave
         private Vector3 targetPoint;
         private float newTargetTimer;
 
+        private GravityMovementController controller;
+
         private void Awake()
         {
             InitializeHealth();
             rb = GetComponent<Rigidbody>();
+            controller = GetComponent<GravityMovementController>();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,6 +58,8 @@ namespace GolemWave
                 //rb.MovePosition(transform.position + posToPlayer.normalized * 20f * Time.deltaTime);
                 headTransform.localRotation = Quaternion.Lerp(headTransform.localRotation, Quaternion.identity, 20f * Time.deltaTime);
             }
+
+            controller.ApplyMovement();
         }
 
         void GenerateTarget()

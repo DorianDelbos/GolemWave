@@ -8,7 +8,7 @@ namespace GolemWave
         {
             inputs = new PlayerInputs();
         }
-        
+
         private void EnableInputs()
         {
             inputs.Enable();
@@ -18,8 +18,10 @@ namespace GolemWave
             inputs.Player.Jump.started += ReadJump;
             inputs.Player.Attack.started += ReadShoot;
             inputs.Player.Attack.canceled += ReadShoot;
+            inputs.Player.Sprint.started += StartRun;
+            inputs.Player.Sprint.canceled += EndRun;
         }
-        
+
         private void DisableInputs()
         {
             inputs.Disable();

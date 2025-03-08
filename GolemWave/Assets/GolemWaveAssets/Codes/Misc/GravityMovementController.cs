@@ -13,6 +13,7 @@ namespace GolemWave
         private Transform currentGravityZone = null;
         private float gravityForce = 3.0f;
 
+        public float Speed { get => speed; set => speed = value; }
         public Vector3 CenterOfGravity { get; private set; }
         public Vector3 GravityDireciton { get; private set; }
         public Vector3 MovementDirection { get; set; }
