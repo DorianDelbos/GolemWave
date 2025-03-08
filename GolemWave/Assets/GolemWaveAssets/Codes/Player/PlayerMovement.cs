@@ -14,7 +14,7 @@ namespace GolemWave
         private Vector2 playerDirectionInput;
 
         float initialSpeed;
-        float speedCoeff;
+        float speedCoeff = 1f;
 
         private void InitializeMovement()
         {

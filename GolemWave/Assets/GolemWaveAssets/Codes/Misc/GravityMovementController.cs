@@ -15,12 +15,15 @@ namespace GolemWave
 
         public float Speed { get => speed; set => speed = value; }
         public Vector3 CenterOfGravity { get; private set; }
-        public Vector3 GravityDireciton { get; private set; }
+        public Vector3 GravityDirection { get; private set; }
         public Vector3 MovementDirection { get; set; }
+
+        private Enemy enemyScript;
 
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
+            enemyScript = GetComponent<Enemy>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -34,15 +37,19 @@ namespace GolemWave
             }
 
             currentGravityZone = other.transform;
-            currentGravityZone.gameObject.SetActive(false);
             CenterOfGravity = other.transform.position;
+
+            if (transform.CompareTag("Player"))
+                currentGravityZone.gameObject.SetActive(false);
         }
 
         public void ApplyMovement()
         {
             CalculateGravityDirection();
             ApplyGravity();
-            HandleMovement();
+            if (CompareTag("Player"))
+                HandleMovement();
+            else HandleEnemyMovement(enemyScript.Player.position);
             UpdatePlayerRotation();
         }
 
@@ -50,32 +57,45 @@ namespace GolemWave
         {
             if (CenterOfGravity == Vector3.zero)
             {
-                GravityDireciton = Vector3.down;
+                GravityDirection = Vector3.down;
                 return;
             }
 
             Vector3 gravityDirectionToCenter = CenterOfGravity - transform.position;
             if (Physics.Raycast(transform.position, gravityDirectionToCenter.normalized, out RaycastHit hit, gravityDirectionToCenter.magnitude))
             {
-                GravityDireciton = -hit.normal;
+                GravityDirection = -hit.normal;
             }
             else
             {
-                GravityDireciton = gravityDirectionToCenter.normalized;
+                GravityDirection = gravityDirectionToCenter.normalized;
             }
         }
 
         private void ApplyGravity()
         {
-            rb.AddForce(GravityDireciton.normalized * gravityForce, ForceMode.Force);
+            rb.AddForce(GravityDirection.normalized * gravityForce, ForceMode.Force);
         }
 
         private void HandleMovement()
         {
-            Vector3 gravityUp = -GravityDireciton;
+            Vector3 gravityUp = -GravityDirection;
             AdjustPlayerOrientation(gravityUp);
 
             Vector3 moveDirection = CalculateMoveDirection(gravityUp);
+            if (moveDirection.magnitude > 0.1f)
+            {
+                RotateTowardsMovement(moveDirection);
+            }
+            rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
+        }
+
+        private void HandleEnemyMovement(Vector3 target)
+        {
+            Vector3 gravityUp = -GravityDirection;
+            AdjustPlayerOrientation(gravityUp);
+
+            Vector3 moveDirection = CalculateEnemyMoveDirection(target);
             if (moveDirection.magnitude > 0.1f)
             {
                 RotateTowardsMovement(moveDirection);
@@ -100,16 +120,26 @@ namespace GolemWave
             return (cameraForward * MovementDirection.y) + (cameraRight * MovementDirection.x);
         }
 
+        private Vector3 CalculateEnemyMoveDirection(Vector3 target)
+        {
+            Vector3 posToTarget = target - rb.position;
+
+            // A faire ça nsm
+            // prendre la même direction mais aligner le vecteur sur rb.forward
+
+            return posToTarget.normalized;
+        }
+
         private void RotateTowardsMovement(Vector3 moveDirection)
         {
-            moveDirection = Vector3.ProjectOnPlane(moveDirection, GravityDireciton).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, -GravityDireciton);
+            moveDirection = Vector3.ProjectOnPlane(moveDirection, GravityDirection).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, -GravityDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         private void UpdatePlayerRotation()
         {
-            if (GravityDireciton == Vector3.down) return;
+            if (GravityDirection == Vector3.down) return;
 
             if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 5f))
             {

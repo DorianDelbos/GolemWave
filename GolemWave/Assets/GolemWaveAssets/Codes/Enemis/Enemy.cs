@@ -11,6 +11,8 @@ namespace GolemWave
         private Vector3 targetPoint;
         private float newTargetTimer;
 
+        public Transform Player { get => player; private set => player = value; }
+
         private GravityMovementController controller;
 
         private void Awake()
@@ -29,10 +31,11 @@ namespace GolemWave
         // Update is called once per frame
         void Update()
         {
+            controller.ApplyMovement();
+
             if (Vector3.SqrMagnitude(transform.position - player.position) > 10 * 10) return;
 
             Vector3 posToPlayer = player.transform.position - transform.position;
-            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(posToPlayer), 20f * Time.deltaTime);
 
             newTargetTimer -= Time.deltaTime;
 
@@ -52,14 +55,12 @@ namespace GolemWave
             }
             else
             {
-                if (newTargetTimer <= 0) 
+                if (newTargetTimer <= 0)
                     laserTransform.gameObject.SetActive(false);
 
                 //rb.MovePosition(transform.position + posToPlayer.normalized * 20f * Time.deltaTime);
                 headTransform.localRotation = Quaternion.Lerp(headTransform.localRotation, Quaternion.identity, 20f * Time.deltaTime);
             }
-
-            controller.ApplyMovement();
         }
 
         void GenerateTarget()
