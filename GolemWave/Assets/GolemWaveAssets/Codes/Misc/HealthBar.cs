@@ -10,7 +10,7 @@ namespace GolemWave
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Gradient opacityGradientTime;
         float decreaseSpeed = 0.5f;
-        private float totalTime = 5.0f;
+        private float totalTime = 2.0f;
         private Coroutine fadeCoroutine;
         private Coroutine decreaseCoroutine;
 

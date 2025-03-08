@@ -19,7 +19,6 @@ namespace GolemWave
         {
             if (!isShooting)
             {
-                RotateHead(transform.forward);
                 laserTransform.gameObject.SetActive(false);
                 return;
             }
@@ -31,17 +30,19 @@ namespace GolemWave
             shootDirection.Normalize();
             laserTransform.transform.forward = shootDirection;
 
-            Vector3 newForward = Vector3.Lerp(transform.forward, shootDirection, 20f * Time.deltaTime);
-            newForward.y = transform.forward.y;
-            transform.forward = newForward;
+            Vector3 horizontalDirection = new Vector3(shootDirection.x, 0, shootDirection.z).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(horizontalDirection, transform.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
 
             RotateHead(shootDirection);
         }
 
-        private void RotateHead(Vector3 rotation)
+        private void RotateHead(Vector3 direction)
         {
-            Quaternion result = Quaternion.LookRotation(rotation, Vector3.up) * Quaternion.Euler(0, -90, 0);
-            headTransform.rotation = Quaternion.Lerp(headTransform.rotation, result, 20f * Time.deltaTime);
+            if (direction == Vector3.zero) return;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction, transform.up) * Quaternion.Euler(0, -90, 0);
+            headTransform.rotation = Quaternion.Slerp(headTransform.rotation, targetRotation, 10f * Time.deltaTime);
         }
 
         private Vector3 GetHeadDirection()
