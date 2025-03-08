@@ -20,7 +20,6 @@ public class Phase1 : BaseState<BossStateMachine>
         : base(currentContext, currentFactory) { }
 
     Coroutine throwProjectilesCoroutine = null;
-    float cooldown;
 
     protected override void CheckSwitchStates()
     {
@@ -36,7 +35,7 @@ public class Phase1 : BaseState<BossStateMachine>
 
     protected override void EnterState()
     {
-        cooldown = 0;
+
     }
 
     protected override void ExitState()
@@ -49,11 +48,7 @@ public class Phase1 : BaseState<BossStateMachine>
 
         if (throwProjectilesCoroutine == null)
         {
-            cooldown += Time.deltaTime;
-            if (cooldown >= 2f)
-            {
-                throwProjectilesCoroutine = Context.StartCoroutine(ThrowProjectiles());
-            }
+            throwProjectilesCoroutine = Context.StartCoroutine(ThrowProjectiles());
         }
     }
 
@@ -71,15 +66,11 @@ public class Phase1 : BaseState<BossStateMachine>
     {
         yield return new WaitForSeconds(2f);
 
-        Debug.Log("saut");
-
         Context.AnimatorComp.ResetTrigger("Jump");
         Context.AnimatorComp.SetTrigger("Jump");
 
         yield return new WaitForSeconds(5.5f);
-        Debug.Log("fini");
 
-        cooldown = 0;
         throwProjectilesCoroutine = null;
     }
 }
