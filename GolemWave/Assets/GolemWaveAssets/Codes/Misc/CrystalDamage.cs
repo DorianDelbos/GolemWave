@@ -6,6 +6,7 @@ namespace GolemWave
     {
         [SerializeField] private int initialHealth;
         [SerializeField] private HealthBar healthBar;
+        [SerializeField] private TextHolder textHolderPrefab;
         private HealthComponent healthComponent;
 
         public int Health { get => healthComponent.Health; set => healthComponent.Health = value; }
@@ -28,6 +29,10 @@ namespace GolemWave
         void IDamageable.TakeDamage(int damages)
         {
             Health -= damages;
+            Vector3 positionDamageText = transform.position + Vector3.up * 4.0f + Random.insideUnitSphere * Random.Range(0.0f, 2.0f);
+            TextHolder instance = Instantiate(textHolderPrefab, positionDamageText, Quaternion.identity);
+            instance.Text = damages.ToString();
+            instance.Size *= Random.Range(1.0f, 5.0f);
             if (Health <= 0) Death();
         }
 

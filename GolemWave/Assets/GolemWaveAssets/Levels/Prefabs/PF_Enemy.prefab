@@ -104,6 +104,7 @@ MonoBehaviour:
   headTransform: {fileID: 4611321251998000616}
   healthBar: {fileID: 7049189124434027787}
   initialHealth: 30
+  textHolderPrefab: {fileID: 218663217680152896, guid: 0f345ce3bf4764a479a4196c2b40c570, type: 3}
 --- !u!1 &1008873405763585676
 GameObject:
   m_ObjectHideFlags: 0

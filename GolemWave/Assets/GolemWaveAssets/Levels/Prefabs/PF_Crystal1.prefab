@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 200
   healthBar: {fileID: 6285053189654475780}
+  textHolderPrefab: {fileID: 218663217680152896, guid: 0f345ce3bf4764a479a4196c2b40c570, type: 3}
 --- !u!1001 &6427408080922663271
 PrefabInstance:
   m_ObjectHideFlags: 0
