@@ -84,7 +84,8 @@ namespace GolemWave
 
         private void AdjustPlayerOrientation(Vector3 gravityUp)
         {
-            lookAtTarget.transform.up = Vector3.Lerp(lookAtTarget.transform.up, gravityUp, 5f * Time.deltaTime);
+            if (lookAtTarget)
+                lookAtTarget.transform.up = Vector3.Lerp(lookAtTarget.transform.up, gravityUp, 5f * Time.deltaTime);
         }
 
         private Vector3 CalculateMoveDirection(Vector3 gravityUp)
