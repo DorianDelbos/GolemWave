@@ -7,6 +7,7 @@ namespace GolemWave
     {
         [Header("Health")]
         [SerializeField] private int initialHealth;
+        [SerializeField] private HUD hud;
         private HealthComponent healthComponent;
 
         public int Health { get => healthComponent.Health; set => healthComponent.Health = value; }
@@ -14,7 +15,7 @@ namespace GolemWave
         public void InitializeHealth()
         {
             healthComponent = new HealthComponent(initialHealth);
-            healthComponent.onHealthChanged += HUD.Instance.OnHealthChanged;
+            healthComponent.onHealthChanged += hud.OnHealthChanged;
         }
 
         public void TakeDamage(int damages, Vector3 position)
