@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8962945409518082469}
   - component: {fileID: 8294703339819603221}
   - component: {fileID: 8937664523032043534}
+  - component: {fileID: 3733517267452333723}
   m_Layer: 0
   m_Name: PF_Enemy
   m_TagString: Untagged
@@ -104,6 +105,21 @@ MonoBehaviour:
   healthBar: {fileID: 7049189124434027787}
   initialHealth: 30
   textHolderPrefab: {fileID: 218663217680152896, guid: 0f345ce3bf4764a479a4196c2b40c570, type: 3}
+--- !u!114 &3733517267452333723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423933953829135075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15618afa1fff4904aa0b0b98f43fcd3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotationSpeed: 10
+  lookAtTarget: {fileID: 0}
 --- !u!1 &1008873405763585676
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,19 +500,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9965914
+      value: 0.7626085
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0016383799
+      value: 0.02504737
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.08248041
+      value: 0.64602685
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00013559646
+      value: -0.02121832
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_AnchoredPosition.x

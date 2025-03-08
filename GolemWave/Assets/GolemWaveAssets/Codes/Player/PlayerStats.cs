@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class Player
 {
@@ -18,6 +19,6 @@ public partial class Player
 
     public void Death()
     {
-
+        SceneManager.LoadScene(0);
     }
 }
