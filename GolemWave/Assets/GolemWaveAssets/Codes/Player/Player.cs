@@ -28,18 +28,8 @@ namespace GolemWave
 
         private void Update()
         {
-            UpdateMovement();
             UpdateLaser();
-        }
-
-        private void FixedUpdate()
-        {
-
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            GravityHandle(other);
+            UpdateMovement();
         }
     }
 }

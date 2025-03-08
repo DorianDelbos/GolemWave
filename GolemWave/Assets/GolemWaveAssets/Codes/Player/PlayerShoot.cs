@@ -31,7 +31,7 @@ namespace GolemWave
             shootDirection.Normalize();
             laserTransform.transform.forward = shootDirection;
 
-            Vector3 gravityDirection = centerOfGravity == Vector3.zero ? Vector3.down : (centerOfGravity - transform.position).normalized;
+            Vector3 gravityDirection = controller.CenterOfGravity == Vector3.zero ? Vector3.down : (controller.CenterOfGravity - transform.position).normalized;
             Vector3 upDirection = -gravityDirection;
 
             Vector3 projectedShootDirection = Vector3.ProjectOnPlane(shootDirection, upDirection).normalized;
