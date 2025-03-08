@@ -49,7 +49,7 @@ namespace GolemWave
             ApplyGravity();
             if (CompareTag("Player"))
                 HandleMovement();
-            else HandleEnemyMovement(enemyScript.Player.position);
+            else HandleEnemyMovement(enemyScript.UpdateBool ? enemyScript.Player.position : rb.transform.position);
             UpdatePlayerRotation();
         }
 
@@ -127,6 +127,7 @@ namespace GolemWave
             // A faire ça nsm
             // prendre la même direction mais aligner le vecteur sur rb.forward
 
+            // Update ça marche???
             return posToTarget.normalized;
         }
 

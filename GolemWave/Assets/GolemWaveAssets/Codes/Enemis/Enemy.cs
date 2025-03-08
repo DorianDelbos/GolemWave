@@ -10,7 +10,7 @@ namespace GolemWave
         private Rigidbody rb;
         private Vector3 targetPoint;
         private float newTargetTimer;
-
+        public bool UpdateBool { get; private set; } = false;
         public Transform Player { get => player; private set => player = value; }
 
         private GravityMovementController controller;
@@ -31,16 +31,16 @@ namespace GolemWave
         // Update is called once per frame
         void Update()
         {
-            controller.ApplyMovement();
-
-            if (Vector3.SqrMagnitude(transform.position - player.position) > 10 * 10) return;
-
             Vector3 posToPlayer = player.transform.position - transform.position;
+            UpdateBool = posToPlayer.sqrMagnitude <= 10 * 10 && posToPlayer.sqrMagnitude >= 3 * 3;
+
+            controller.ApplyMovement();
 
             newTargetTimer -= Time.deltaTime;
 
             if (posToPlayer.sqrMagnitude <= 3 * 3)
             {
+                UpdateBool = false;
                 laserTransform.gameObject.SetActive(true);
 
                 if (newTargetTimer <= 0)
@@ -48,18 +48,12 @@ namespace GolemWave
                     GenerateTarget();
                 }
 
-                laserTransform.rotation = Quaternion.Lerp(laserTransform.rotation, Quaternion.LookRotation(targetPoint - transform.position), 4f * Time.deltaTime);
-
-                Quaternion newHeadRot = Quaternion.LookRotation(targetPoint - transform.position) * Quaternion.Euler(0, -90, 0);
-                headTransform.rotation = Quaternion.Lerp(headTransform.rotation, newHeadRot, 20f * Time.deltaTime);
+                headTransform.rotation = Quaternion.Lerp(headTransform.rotation, Quaternion.LookRotation(targetPoint - transform.position, transform.up) * Quaternion.Euler(0, -90, 0), 4f * Time.deltaTime);
             }
             else
             {
                 if (newTargetTimer <= 0)
                     laserTransform.gameObject.SetActive(false);
-
-                //rb.MovePosition(transform.position + posToPlayer.normalized * 20f * Time.deltaTime);
-                headTransform.localRotation = Quaternion.Lerp(headTransform.localRotation, Quaternion.identity, 20f * Time.deltaTime);
             }
         }
 
