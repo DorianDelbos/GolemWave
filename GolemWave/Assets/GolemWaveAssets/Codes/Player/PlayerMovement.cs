@@ -26,37 +26,45 @@ namespace GolemWave
 
         void UpdateMovement()
         {
-            gravityDirection = Vector3.down;
-            if (centerOfGravity != Vector3.zero)
+            // Raycast pour obtenir la normale du sol sous le joueur
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -transform.up, out hit, 2f))
             {
-                gravityDirection = (centerOfGravity - transform.position).normalized;
+                gravityDirection = -hit.normal;
             }
+            else
+            {
+                gravityDirection = centerOfGravity == Vector3.zero ? Vector3.down : centerOfGravity - transform.position;
+            }
+
             Vector3 gravityUp = -gravityDirection;
 
-            lookAtTarget.transform.up = Vector3.Lerp(lookAtTarget.transform.up, gravityUp, 0.02f * Time.deltaTime);
+            // Ajuste l'orientation de l'objet à la normale du sol
+            lookAtTarget.transform.up = Vector3.Lerp(lookAtTarget.transform.up, gravityUp, 5f * Time.deltaTime);
 
+            // Calcule la direction de la caméra projetée sur la surface
             Vector3 cameraForward = Camera.main.transform.forward;
             Vector3 cameraRight = Camera.main.transform.right;
-
-            //if (Mathf.Abs(Vector3.Dot(cameraForward, gravityUp)) > 0.9f)
-            //{
-            //    cameraForward = Vector3.Cross(gravityUp, cameraRight).normalized;
-            //}
 
             cameraForward = Vector3.ProjectOnPlane(cameraForward, gravityUp).normalized;
             cameraRight = Vector3.ProjectOnPlane(cameraRight, gravityUp).normalized;
 
+            // Calcule la direction de mouvement (corrigée pour suivre la pente)
             Vector3 moveDirection = (cameraForward * playerDirectionInput.y) + (cameraRight * playerDirectionInput.x);
 
             if (moveDirection.magnitude > 0.1f)
             {
+                moveDirection = Vector3.ProjectOnPlane(moveDirection, gravityDirection).normalized;
+
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection, -gravityDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
 
+            // Applique le mouvement corrigé
             rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
 
-            rb.AddForce(gravityDirection * 9.81f, ForceMode.Force);
+            // Applique la gravité corrigée
+            rb.AddForce(gravityDirection.normalized * 9.81f * 0.3f, ForceMode.Force);
 
             UpdatePlayerRotation();
         }
@@ -64,6 +72,9 @@ namespace GolemWave
         private void GravityHandle(Collider other)
         {
             if (!other.CompareTag("GravityZone")) return;
+
+            Debug.Log(other.name);
+
             centerOfGravity = other.transform.position;
         }
 
@@ -74,7 +85,7 @@ namespace GolemWave
 
         void ReadJump(InputAction.CallbackContext ctx)
         {
-            if (!Physics.Raycast(transform.position, Vector3.down, 0.5f)) return;
+            if (!Physics.Raycast(transform.position, -transform.up, 0.5f)) return;
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
 
