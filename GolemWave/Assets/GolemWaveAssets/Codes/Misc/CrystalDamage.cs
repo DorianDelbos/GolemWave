@@ -1,96 +1,39 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CrystalDamage : MonoBehaviour, IDamageable
+namespace GolemWave
 {
-    [SerializeField] int hp;
-    float maxHealth;
-
-    [SerializeField] Image healthBarForeground;
-    [SerializeField] Canvas healthBarCanvas;
-
-    float reduceSpeed = 1f;
-    float targetHP = 1;
-
-    Camera cam;
-
-    float lowerOpacityTimer = 2f;
-    bool dimmed = false;
-
-    private void Awake()
+    public class CrystalDamage : MonoBehaviour, IDamageable
     {
-        maxHealth = hp;
+        [SerializeField] private int initialHealth;
+        [SerializeField] private HealthBar healthBar;
+        private HealthComponent healthComponent;
 
-        if (!healthBarForeground) Debug.LogError("incorrect Crystal");
-    }
+        public int Health { get => healthComponent.Health; set => healthComponent.Health = value; }
 
-    private void Start()
-    {
-        cam = Camera.main;
-    }
-
-    private void Update()
-    {
-        if (!healthBarCanvas.gameObject.activeInHierarchy) return;
-
-        healthBarCanvas.transform.rotation = Quaternion.LookRotation(healthBarCanvas.transform.position - cam.transform.position);
-        healthBarForeground.fillAmount = Mathf.MoveTowards(healthBarForeground.fillAmount, targetHP, reduceSpeed * Time.deltaTime);
-
-        lowerOpacityTimer -= Time.deltaTime;
-
-        if (lowerOpacityTimer < 0 && !dimmed)
+        private void Awake()
         {
-            lowerOpacityTimer = 0;
-            Image[] images = healthBarCanvas.GetComponentsInChildren<Image>();
-
-            foreach (Image image in images)
-            {
-                Color color = image.color;
-                color.a = Mathf.Lerp(color.a, 0.5f, 6f * Time.deltaTime);
-                image.color = color;
-
-                if (color.a <= 0.5f)
-                    dimmed = true;
-            }
-        }
-    }
-
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
-
-    public bool TakeDamage()
-    {
-        if (!healthBarCanvas.gameObject.activeInHierarchy)
-        {
-            healthBarCanvas.gameObject.SetActive(true);
-        }
-        else
-        {
-            Image[] images = healthBarCanvas.GetComponentsInChildren<Image>();
-
-            foreach (Image image in images)
-            {
-                Color color = image.color;
-                color.a = 1f;
-                image.color = color;
-            }
-
-            dimmed = false;
-            lowerOpacityTimer = 2f;
+            healthComponent = new HealthComponent(initialHealth);
         }
 
-        hp -= 5;
-
-        targetHP = hp / maxHealth;
-
-        if (hp <= 0)
+        private void OnEnable()
         {
-            Die();
-            return false;
+            healthComponent.onHealthChanged += healthBar.OnHealthChanged;
         }
-        return true;
+
+        private void OnDisable()
+        {
+            healthComponent.onHealthChanged -= healthBar.OnHealthChanged;
+        }
+
+        void IDamageable.TakeDamage(int damages)
+        {
+            Health -= damages;
+            if (Health <= 0) Death();
+        }
+
+        public void Death()
+        {
+            Destroy(gameObject);
+        }
     }
 }

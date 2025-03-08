@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 3469889548401122860}
   - component: {fileID: 3262450482845165805}
   m_Layer: 0
-  m_Name: DamageCanvas
+  m_Name: PF_DamageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

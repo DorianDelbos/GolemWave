@@ -1,100 +1,41 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class EnemyStats : MonoBehaviour, IDamageable
+namespace GolemWave
 {
-    [SerializeField] float hp;
-    float maxHealth;
-
-    [SerializeField] Image healthBarForeground;
-    [SerializeField] Canvas healthBarCanvas;
-
-    //[SerializeField] GameObject damageCanvasPf;
-    //[SerializeField] Transform damageCanvasSpawn;
-
-    float reduceSpeed = 1f;
-    float targetHP = 1;
-
-    Camera cam;
-
-    float lowerOpacityTimer = 2f;
-    bool dimmed = false;
-
-    private void Awake()
+    public partial class Enemy
     {
-        maxHealth = hp;
+        [SerializeField] private HealthBar healthBar;
+        [SerializeField] private int initialHealth;
+        private HealthComponent healthComponent;
 
-        if (!healthBarForeground) Debug.LogError("incorrect ennemy");
-    }
+        public int Health { get => healthComponent.Health; set => healthComponent.Health = value; }
 
-    private void Start()
-    {
-        cam = Camera.main;
-    }
-
-    private void Update()
-    {
-        if (!healthBarCanvas.gameObject.activeInHierarchy) return;
-
-        healthBarCanvas.transform.rotation = Quaternion.LookRotation(healthBarCanvas.transform.position - cam.transform.position);
-        healthBarForeground.fillAmount = Mathf.MoveTowards(healthBarForeground.fillAmount, targetHP, reduceSpeed * Time.deltaTime);
-
-        lowerOpacityTimer -= Time.deltaTime;
-
-        if (lowerOpacityTimer < 0 && !dimmed)
+        private void InitializeHealth()
         {
-            lowerOpacityTimer = 0;
-            Image[] images = healthBarCanvas.GetComponentsInChildren<Image>();
-
-            foreach (Image image in images)
-            {
-                Color color = image.color;
-                color.a = Mathf.Lerp(color.a, 0.5f, 6f * Time.deltaTime);
-                image.color = color;
-
-                if (color.a <= 0.5f)
-                    dimmed = true;
-            }
-        }
-    }
-
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
-
-    public bool TakeDamage()
-    {
-        if (!healthBarCanvas.gameObject.activeInHierarchy)
-        {
-            healthBarCanvas.gameObject.SetActive(true);
-        }
-        else
-        {
-            Image[] images = healthBarCanvas.GetComponentsInChildren<Image>();
-
-            foreach (Image image in images)
-            {
-                Color color = image.color;
-                color.a = 1f;
-                image.color = color;
-            }
-
-            dimmed = false;
-            lowerOpacityTimer = 2f;
+            healthComponent = new HealthComponent(initialHealth);
         }
 
-        //Instantiate(damageCanvasPf, damageCanvasSpawn.position, Quaternion.identity, damageCanvasSpawn);
-
-        hp -= 5;
-
-        targetHP = hp / maxHealth;
-
-        if (hp <= 0)
+        private void OnEnable()
         {
-            Die();
-            return false;
+            healthComponent.onHealthChanged += healthBar.OnHealthChanged;
         }
-        return true;
+
+        private void OnDisable()
+        {
+            healthComponent.onHealthChanged -= healthBar.OnHealthChanged;
+        }
+
+        public void Death()
+        {
+            Destroy(gameObject);
+        }
+
+        public void TakeDamage(int damages)
+        {
+            //Instantiate(damageCanvasPf, damageCanvasSpawn.position, Quaternion.identity, damageCanvasSpawn);
+
+            Health -= damages;
+            if (healthComponent.IsDead) Death();
+        }
     }
 }

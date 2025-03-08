@@ -1,69 +1,39 @@
+using System.Collections;
 using UnityEngine;
 
-public class LaserDamage : MonoBehaviour
+namespace GolemWave
 {
-    [SerializeField] GameObject damageCanvasPf;
-
-    AudioSource tickSound;
-
-    public bool Hit { get; private set; } = false;
-
-    float timer = 0f;
-    [SerializeField] float tick;
-
-    IDamageable damageable;
-
-    private void Awake()
+    public class LaserDamage : MonoBehaviour
     {
-        tickSound = GetComponent<AudioSource>();
-    }
+        [SerializeField] private AudioSource tickAudioSource;
+        [SerializeField] private int damages;
+        private Coroutine damageRoutine;
+        private float timer = 0.4f;
 
-    private void Update()
-    {
-        if (Hit)
+        private IEnumerator DamageRoutine(IDamageable damageable)
         {
-            timer += Time.deltaTime;
-
-            if (timer >= 0.1f)
+            while (damageable.Health > 0)
             {
-                if (!damageable.TakeDamage())
-                {
-                    Hit = false;
-                    damageable = null;
-                };
-
-                if (damageCanvasPf != null)
-                {
-                    RaycastHit hit;
-                    if (Physics.Raycast(transform.position - transform.forward * 3f, transform.forward, out hit, 6f))
-                    {
-                        GameObject go = Instantiate(damageCanvasPf, hit.point + hit.normal * 0.1f, Quaternion.identity);
-                        go.transform.position += transform.up * 0.2f + transform.right * 0.2f;
-                    }
-                }
-
-                tickSound.Play();
-                timer = 0f;
+                damageable.TakeDamage(damages);
+                tickAudioSource.Play();
+                yield return new WaitForSeconds(timer);
             }
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<IDamageable>() != null)
+        private void OnTriggerEnter(Collider other)
         {
-            Hit = true;
-            damageable = other.GetComponent<IDamageable>();
+            if (!other.TryGetComponent(out IDamageable damageable)) return;
+
+            if (damageRoutine != null) StopCoroutine(damageRoutine);
+            damageRoutine = StartCoroutine(DamageRoutine(damageable));
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<IDamageable>() != null)
+        private void OnTriggerExit(Collider other)
         {
-            Hit = false;
-            damageable = null;
-            timer = 0f;
+            if (!other.TryGetComponent(out IDamageable _)) return;
+
+            if (damageRoutine != null) StopCoroutine(damageRoutine);
+            damageRoutine = null;
         }
     }
 }

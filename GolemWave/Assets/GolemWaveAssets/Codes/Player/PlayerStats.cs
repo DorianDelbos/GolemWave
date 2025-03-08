@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour, IDamageable
+public partial class Player
 {
     [SerializeField] int hp;
 
@@ -10,13 +10,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         if (hp <= 0)
         {
-            Die();
+            Death();
             return false;
         }
         return true;
     }
 
-    public void Die()
+    public void Death()
     {
 
     }
