@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerStats : IDamageable
+public class PlayerStats : MonoBehaviour, IDamageable
 {
-    int hp;
+    [SerializeField] int hp;
 
     public bool TakeDamage()
     {

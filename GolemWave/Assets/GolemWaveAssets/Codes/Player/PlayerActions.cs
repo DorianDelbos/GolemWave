@@ -21,8 +21,7 @@ public class PlayerActions : MonoBehaviour
         playerControls.Player.Attack.started += ctx =>
         {
             IsShooting = true;
-            laser = Instantiate(laserPf, laserSpawn.position, Quaternion.identity);
-            laser.transform.parent = transform;
+            laser = Instantiate(laserPf, laserSpawn.position, transform.rotation, transform);
         };
 
         playerControls.Player.Attack.canceled += ctx =>
