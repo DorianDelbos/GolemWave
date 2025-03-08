@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPf: {fileID: 8437288049069019510, guid: 072b13582ed03314796b4434c946a9e9, type: 3}
   laserSpawn: {fileID: 1173729664543473982}
-  head: {fileID: 0}
+  head: {fileID: 4611321251998000616}
 --- !u!1 &2723726080759892921
 GameObject:
   m_ObjectHideFlags: 0
