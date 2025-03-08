@@ -316,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 0
   speed: 5
+  jumpForce: 8
   rotationSpeed: 10
   lookAtTarget: {fileID: 7055798633143984845}
   laserTransform: {fileID: 156103252073759764}
@@ -1165,7 +1166,7 @@ PrefabInstance:
     - target: {fileID: 1053619697597103133, guid: 20d6f5e087c635b44bcb18c64fcd63e0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 77a5d29110d5bd141920e78b7dadff96, type: 2}
+      objectReference: {fileID: 2100000, guid: 2f06acb4eeaf3b44aae983c8c0f8baf2, type: 2}
     - target: {fileID: 2187029368817277147, guid: 20d6f5e087c635b44bcb18c64fcd63e0, type: 3}
       propertyPath: m_Layer
       value: 2
