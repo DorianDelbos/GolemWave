@@ -97,14 +97,6 @@ namespace GolemWave
             centerOfGravity = other.transform.position;
         }
 
-        private void GravityZoneExit(Collider other)
-        {
-            //if (other == lockedGravityZone)
-            //{
-            //    lockedGravityZone = currentGravityZone;
-            //}
-        }
-
         void ReadMovement(InputAction.CallbackContext ctx)
         {
             playerDirectionInput = ctx.ReadValue<Vector2>();
