@@ -124,7 +124,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 3aa83c03d5cd05a409a711963dd15498, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 49e04c6c9dd943542b09c813a1b5b683, type: 2}
+      objectReference: {fileID: 2100000, guid: 92a9705afca2f8045b859fbf7ceb076b, type: 2}
     - target: {fileID: 919132149155446097, guid: 3aa83c03d5cd05a409a711963dd15498, type: 3}
       propertyPath: m_Name
       value: MOD_Crystal1
@@ -197,19 +197,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9965914
+      value: 0.76301897
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0016383799
+      value: -0.0012543905
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.08248041
+      value: 0.6463741
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00013559646
+      value: 0.0010626285
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_AnchoredPosition.x
