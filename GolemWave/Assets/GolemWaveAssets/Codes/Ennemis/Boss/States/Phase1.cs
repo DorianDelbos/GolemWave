@@ -10,35 +10,51 @@
 //      }
 // }
 
-using StateMachine; // include all scripts about StateMachines
+using StateMachine;
+using System.Collections;
+using UnityEngine; // include all scripts about StateMachines
 
 public class Phase1 : BaseState<BossStateMachine>
 {
     public Phase1(BossStateMachine currentContext, StateFactory<BossStateMachine> currentFactory)
         : base(currentContext, currentFactory) { }
-        
-    // This method will be called every Update to check whether or not to switch states.
+
+    Coroutine throwProjectilesCoroutine = null;
+    float cooldown;
+
     protected override void CheckSwitchStates()
     {
+        Vector3 alignedPlayerPos = Context.Player.position;
+        alignedPlayerPos.y = Context.transform.position.y;
+        Vector3 posToPlayer = alignedPlayerPos - Context.transform.position;
 
+        if (posToPlayer.sqrMagnitude <= 30 * 30 && throwProjectilesCoroutine == null)
+        {
+            SwitchState(Factory.GetState<Phase2>());
+        }
     }
 
-    // This method will be called only once before the update.
     protected override void EnterState()
     {
-
+        cooldown = 0;
     }
 
-    // This method will be called only once after the last update.
     protected override void ExitState()
     {
 
     }
 
-    // This method will be called every frame.
     protected override void UpdateState()
     {
 
+        if (throwProjectilesCoroutine == null)
+        {
+            cooldown += Time.deltaTime;
+            if (cooldown >= 2f)
+            {
+                throwProjectilesCoroutine = Context.StartCoroutine(ThrowProjectiles());
+            }
+        }
     }
 
     // This method will be called on state switch.
@@ -47,5 +63,23 @@ public class Phase1 : BaseState<BossStateMachine>
     {
         base.SwitchState(newState);
         Context.currentState = newState;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    IEnumerator ThrowProjectiles()
+    {
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log("saut");
+
+        Context.AnimatorComp.ResetTrigger("Jump");
+        Context.AnimatorComp.SetTrigger("Jump");
+
+        yield return new WaitForSeconds(5.5f);
+        Debug.Log("fini");
+
+        cooldown = 0;
+        throwProjectilesCoroutine = null;
     }
 }

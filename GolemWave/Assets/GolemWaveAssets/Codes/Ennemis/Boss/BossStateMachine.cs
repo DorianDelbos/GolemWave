@@ -11,10 +11,19 @@ public class BossStateMachine : MonoBehaviour
     public BaseState<BossStateMachine> currentState;
     private StateFactory<BossStateMachine> factory;
 
+    [SerializeField] Transform player;
+    [SerializeField] GameObject projectilePf;
+
+    public Animator AnimatorComp {  get; private set; }
+    public Transform Player { get => player; private set => player = value; }
+    public GameObject ProjectilePf { get => projectilePf; private set => projectilePf = value; }
+
     void Start()
     {
         factory = new StateFactory<BossStateMachine>(this);
         currentState = factory.GetState<Phase1>(true);
+
+        AnimatorComp = GetComponent<Animator>();
     }
 
     void Update()
