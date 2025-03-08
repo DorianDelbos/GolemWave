@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GolemWave
 {
@@ -23,7 +24,7 @@ namespace GolemWave
 
         public void Death()
         {
-            // TODO Player death
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace GolemWave
 
             float elapsedTime = 0f;
             float startValue = material.GetFloat(cutoffProperty);
-            float endValue = -5.0f; // Adjust this based on your shader's behavior
+            float endValue = 0.0f; // Adjust this based on your shader's behavior
 
             while (elapsedTime < dissolveDuration)
             {
