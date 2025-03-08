@@ -71,14 +71,5 @@ namespace GolemWave
 
             newTargetTimer = 0.5f;
         }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = new Color(1, 0, 0, 0.3f);
-            Gizmos.DrawSphere(transform.position, 10);
-
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(targetPoint, 0.1f);
-        }
     }
 }
