@@ -9,6 +9,9 @@ public class EnemyStats : MonoBehaviour, IDamageable
     [SerializeField] Image healthBarForeground;
     [SerializeField] Canvas healthBarCanvas;
 
+    //[SerializeField] GameObject damageCanvasPf;
+    //[SerializeField] Transform damageCanvasSpawn;
+
     float reduceSpeed = 1f;
     float targetHP = 1;
 
@@ -80,6 +83,8 @@ public class EnemyStats : MonoBehaviour, IDamageable
             dimmed = false;
             lowerOpacityTimer = 2f;
         }
+
+        //Instantiate(damageCanvasPf, damageCanvasSpawn.position, Quaternion.identity, damageCanvasSpawn);
 
         hp -= 5;
 

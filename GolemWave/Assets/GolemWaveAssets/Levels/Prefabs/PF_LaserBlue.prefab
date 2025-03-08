@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc5f90ee6a48d5479114632cddba57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageCanvasPf: {fileID: 8457607328923883768, guid: d3f5223110cd5d54997c6ab039d8395f, type: 3}
   tick: 0.4
 --- !u!82 &6872916989163839258
 AudioSource:
