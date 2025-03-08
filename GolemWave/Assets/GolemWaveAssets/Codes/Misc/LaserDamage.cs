@@ -8,7 +8,7 @@ namespace GolemWave
         [SerializeField] private AudioSource tickAudioSource;
         [SerializeField] private int damages;
         private Coroutine damageRoutine;
-        private float timer = 0.4f;
+        private float timer = 0.1f;
 
         private IEnumerator DamageRoutine(IDamageable damageable)
         {
