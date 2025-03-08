@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyComportment : MonoBehaviour
 {
     [SerializeField] GameObject laserPf;
     [SerializeField] Transform laserSpawn;
     GameObject laser;
+
+    [SerializeField] Transform head;
 
     Transform player;
     Rigidbody rb;
@@ -37,7 +40,7 @@ public class EnemyComportment : MonoBehaviour
         {
             if (!laser)
             {
-                laser = Instantiate(laserPf, laserSpawn.position, transform.rotation, transform);
+                laser = Instantiate(laserPf, laserSpawn.position, transform.rotation, laserSpawn);
             }
 
             if (newTargetTimer <= 0)
@@ -46,12 +49,16 @@ public class EnemyComportment : MonoBehaviour
             }
 
             laser.transform.rotation = Quaternion.Lerp(laser.transform.rotation, Quaternion.LookRotation(targetPoint - laserSpawn.position), 4f * Time.deltaTime);
+
+            Quaternion newHeadRot = Quaternion.LookRotation(targetPoint - laserSpawn.position) * Quaternion.Euler(0, -90, 0);
+            head.rotation = Quaternion.Lerp(head.rotation, newHeadRot, 20f * Time.deltaTime);
         }
         else
         {
             if (laser && newTargetTimer <= 0) Destroy(laser);
 
             rb.MovePosition(transform.position + posToPlayer.normalized * 20f * Time.deltaTime);
+            head.localRotation = Quaternion.Lerp(head.localRotation, Quaternion.identity, 20f * Time.deltaTime);
         }
     }
 

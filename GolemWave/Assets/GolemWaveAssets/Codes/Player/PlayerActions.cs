@@ -8,6 +8,7 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] Transform laserSpawn;
     [SerializeField] GameObject laserPf;
+    [SerializeField] Transform head;
 
     GameObject laser;
 
@@ -43,12 +44,17 @@ public class PlayerActions : MonoBehaviour
             Vector3 newForward = Vector3.Lerp(transform.forward, shootDirection, 20f * Time.deltaTime);
             newForward.y = transform.forward.y;
             transform.forward = newForward;
+
+            Quaternion newHeadRot = Quaternion.LookRotation(shootDirection, Vector3.up) * Quaternion.Euler(0, -90, 0);
+            head.rotation = Quaternion.Lerp(head.rotation, newHeadRot, 20f * Time.deltaTime);
         }
+
+        else head.localRotation = Quaternion.Lerp(head.localRotation, Quaternion.identity, 20f * Time.deltaTime);
     }
 
     Vector3 GetShootDirection()
     {
-        Plane plane = new Plane(-Camera.main.transform.forward,transform.position + Camera.main.transform.forward * 6);
+        Plane plane = new Plane(-Camera.main.transform.forward, transform.position + Camera.main.transform.forward * 6);
 
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
