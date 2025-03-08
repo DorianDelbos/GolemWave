@@ -15,6 +15,7 @@ namespace GolemWave
         private Rigidbody rb;
         private Vector2 playerDirectionInput;
         private Vector3 centerOfGravity;
+        Vector3 gravityDirection;
 
         private void InitializeMovement()
         {
@@ -25,7 +26,7 @@ namespace GolemWave
 
         void UpdateMovement()
         {
-            Vector3 gravityDirection = Vector3.down;
+            gravityDirection = Vector3.down;
             if (centerOfGravity != Vector3.zero)
             {
                 gravityDirection = (centerOfGravity - transform.position).normalized;
@@ -54,13 +55,16 @@ namespace GolemWave
             }
 
             rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
+
             rb.AddForce(gravityDirection * 9.81f, ForceMode.Force);
+
+            UpdatePlayerRotation();
         }
 
         private void GravityHandle(Collider other)
         {
             if (!other.CompareTag("GravityZone")) return;
-            centerOfGravity = other.transform.parent.position;
+            centerOfGravity = other.transform.position;
         }
 
         void ReadMovement(InputAction.CallbackContext ctx)
@@ -72,6 +76,28 @@ namespace GolemWave
         {
             if (!Physics.Raycast(transform.position, Vector3.down, 0.5f)) return;
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+
+        Vector3 hitPoint;
+        void UpdatePlayerRotation()
+        {
+            if (gravityDirection == Vector3.down) return;
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -transform.up, out hit, 5f))
+            {
+                hitPoint = hit.point;
+
+                Vector3 newUp = hit.normal;
+                Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, newUp).normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(forwardProjected, newUp);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(hitPoint, 0.1f);
         }
     }
 }
