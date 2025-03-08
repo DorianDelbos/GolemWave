@@ -32,15 +32,12 @@ namespace GolemWave
             Destroy(gameObject);
         }
 
-        public void TakeDamage(int damages)
+        public void TakeDamage(int damages, Vector3 position)
         {
-            //Instantiate(damageCanvasPf, damageCanvasSpawn.position, Quaternion.identity, damageCanvasSpawn);
-
             Health -= damages;
-            Vector3 positionDamageText = transform.position + Vector3.up + Random.insideUnitSphere * Random.Range(0.0f, 2.0f);
-            TextHolder instance = Instantiate(textHolderPrefab, positionDamageText, Quaternion.identity);
+            TextHolder instance = Instantiate(textHolderPrefab, position, Quaternion.identity);
             instance.Text = damages.ToString();
-            instance.Size *= Random.Range(1.0f, 5.0f);
+            instance.Size *= Random.Range(1.0f, 2.0f);
             if (healthComponent.IsDead) Death();
         }
     }

@@ -15,7 +15,7 @@ namespace GolemWave
             healthComponent = new HealthComponent(initialHealth);
         }
 
-        public void TakeDamage(int damages)
+        public void TakeDamage(int damages, Vector3 position)
         {
             Health -= damages;
             if (healthComponent.IsDead) Death();

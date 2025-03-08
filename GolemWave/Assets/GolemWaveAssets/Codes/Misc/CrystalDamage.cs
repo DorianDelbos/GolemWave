@@ -26,11 +26,10 @@ namespace GolemWave
             healthComponent.onHealthChanged -= healthBar.OnHealthChanged;
         }
 
-        void IDamageable.TakeDamage(int damages)
+        void IDamageable.TakeDamage(int damages, Vector3 position)
         {
             Health -= damages;
-            Vector3 positionDamageText = transform.position + Vector3.up * 4.0f + Random.insideUnitSphere * Random.Range(0.0f, 2.0f);
-            TextHolder instance = Instantiate(textHolderPrefab, positionDamageText, Quaternion.identity);
+            TextHolder instance = Instantiate(textHolderPrefab, position, Quaternion.identity);
             instance.Text = damages.ToString();
             instance.Size *= Random.Range(1.0f, 5.0f);
             if (Health <= 0) Death();
