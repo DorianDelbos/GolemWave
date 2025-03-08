@@ -14,6 +14,7 @@ namespace GolemWave
         public void InitializeHealth()
         {
             healthComponent = new HealthComponent(initialHealth);
+            healthComponent.onHealthChanged += HUD.Instance.OnHealthChanged;
         }
 
         public void TakeDamage(int damages, Vector3 position)
