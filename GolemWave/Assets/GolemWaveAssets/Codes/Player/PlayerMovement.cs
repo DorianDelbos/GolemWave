@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerControls = new InputSystem_Actions();
         rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
+        //rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
 
-        rb.linearVelocity = gravityDirection * 9.81f;
+        //rb.linearVelocity = gravityDirection * 9.81f;
     }
 
 
@@ -94,6 +94,6 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJumpAction(InputAction.CallbackContext ctx)
     {
-        rb.AddForce(transform.up * 10f);
+        rb.AddForce(transform.up * 4f, ForceMode.Impulse);
     }
 }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - GravityZone
+  - Ground
   layers:
   - Default
   - TransparentFX
