@@ -501,6 +501,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!95 &460298574 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2898947777204887059, guid: c5f5fe67017d59647b1aab71b3da6281, type: 3}
+  m_PrefabInstance: {fileID: 1897033174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &530698715 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 423933953829135075, guid: 5f8056cb16ea10e44a350231bda18982, type: 3}
@@ -1635,6 +1640,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 945588721}
+    - target: {fileID: 6165137495043026309, guid: c5f5fe67017d59647b1aab71b3da6281, type: 3}
+      propertyPath: headAnimator
+      value: 
+      objectReference: {fileID: 460298574}
     - target: {fileID: 6165137495043026309, guid: c5f5fe67017d59647b1aab71b3da6281, type: 3}
       propertyPath: 'enemiesList.Array.data[0]'
       value: 
