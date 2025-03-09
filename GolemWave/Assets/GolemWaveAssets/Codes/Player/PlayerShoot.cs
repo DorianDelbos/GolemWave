@@ -11,6 +11,8 @@ namespace GolemWave
         [SerializeField] private int damages;
         private bool isShooting;
 
+        float localScaleZ;
+
         private void ReadShoot(InputAction.CallbackContext ctx)
         {
             isShooting = ctx.ReadValueAsButton() && Time.timeScale > 0;
@@ -39,7 +41,8 @@ namespace GolemWave
             Vector3 shootDirection = GetHeadDirection();
 
             shootDirection.Normalize();
-            laserTransform.transform.forward = shootDirection;
+            laserTransform.forward = shootDirection;
+            laserTransform.localScale = new Vector3(laserTransform.localScale.x, laserTransform.localScale.y, localScaleZ);
 
             Vector3 gravityDirection = controller.CenterOfGravity == Vector3.zero ? Vector3.down : (controller.CenterOfGravity - transform.position).normalized;
             Vector3 upDirection = -gravityDirection;
@@ -62,18 +65,38 @@ namespace GolemWave
 
         private Vector3 GetHeadDirection()
         {
-            Plane plane = new Plane(-Camera.main.transform.forward, transform.position + Camera.main.transform.forward * 10f);
-
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-
-            float distance;
-            if (plane.Raycast(ray, out distance))
+            // Essai de raycast vers le curseur
+            if (TryGetRaycastHit(out Vector3 impactPoint))
             {
-                Vector3 hitPoint = ray.GetPoint(distance);
-                return (hitPoint - laserTransform.transform.position).normalized;
+                return (impactPoint - laserTransform.position).normalized;
             }
 
-            return Camera.main.transform.forward;
+            // Si pas d'impact, projection sur un plan devant le joueur
+            Plane plane = new Plane(-Camera.main.transform.forward, transform.position + Camera.main.transform.forward * 10f);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (plane.Raycast(ray, out float distance))
+            {
+                Vector3 hitPoint = ray.GetPoint(distance);
+                return (hitPoint - laserTransform.position).normalized;
+            }
+
+            return Camera.main.transform.forward; // Fallback si tout échoue
+        }
+
+        private bool TryGetRaycastHit(out Vector3 impactPoint)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit, 10f + (Camera.main.transform.position - transform.position).magnitude))
+            {
+                impactPoint = hit.point;
+                localScaleZ = (hit.point - laserTransform.position).magnitude / 10f;
+                return true;
+            }
+
+            localScaleZ = 1;
+            impactPoint = Vector3.zero;
+            return false;
         }
     }
 }
