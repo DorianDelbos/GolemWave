@@ -18,13 +18,13 @@ public class Phase4 : BaseState<BossStateMachine>
 {
     public Phase4(BossStateMachine currentContext, StateFactory<BossStateMachine> currentFactory)
         : base(currentContext, currentFactory) { }
-        
+
     // This method will be called every Update to check whether or not to switch states.
     protected override void CheckSwitchStates()
     {
         Vector3 headToPlayer = Context.Player.position - Context.crystalTransform.transform.position;
 
-        if (headToPlayer.sqrMagnitude <= 1)
+        if (headToPlayer.sqrMagnitude <= 4f * 4f)
         {
             SceneManager.LoadScene("EndScreen");
         }

@@ -1050,19 +1050,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.8874355
+      value: 0.14317738
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.11670586
+      value: 0.38050544
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.4413893
+      value: 0.6795401
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.06335282
+      value: -0.61068916
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1089,19 +1089,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1163354513880715538, guid: 0b18d9941aa9ce04dbe925b4d66f1c3e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0035613708
+      value: -0.76296806
       objectReference: {fileID: 0}
     - target: {fileID: 1163354513880715538, guid: 0b18d9941aa9ce04dbe925b4d66f1c3e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.6454621
+      value: -0.12297878
       objectReference: {fileID: 0}
     - target: {fileID: 1163354513880715538, guid: 0b18d9941aa9ce04dbe925b4d66f1c3e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5241627
+      value: 0.44963476
       objectReference: {fileID: 0}
     - target: {fileID: 1163354513880715538, guid: 0b18d9941aa9ce04dbe925b4d66f1c3e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.55553526
+      value: 0.4478667
       objectReference: {fileID: 0}
     - target: {fileID: 2345541604554285332, guid: 0b18d9941aa9ce04dbe925b4d66f1c3e, type: 3}
       propertyPath: m_LocalScale.x
@@ -1264,19 +1264,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.26830792
+      value: -0.40902203
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.84991705
+      value: 0.071444824
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.1479153
+      value: 0.48007974
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.4286875
+      value: 0.77273554
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1371,19 +1371,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.25098798
+      value: -0.4452063
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.78362745
+      value: 0.37705123
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.053159073
+      value: -0.77621984
       objectReference: {fileID: 0}
     - target: {fileID: 7187908434841623355, guid: 68224d30f853fac4db6675c89aef0dab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5657802
+      value: -0.23896988
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
