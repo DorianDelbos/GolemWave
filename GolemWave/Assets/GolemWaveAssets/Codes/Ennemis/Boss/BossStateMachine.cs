@@ -31,6 +31,7 @@ public class BossStateMachine : MonoBehaviour
 
     [Header("Phase 4")]
     [SerializeField] Animator headAnimator;
+    public Transform crystalTransform;
 
 
     public Animator AnimatorComp { get; private set; }

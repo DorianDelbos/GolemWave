@@ -22,7 +22,7 @@ public class Phase4 : BaseState<BossStateMachine>
     // This method will be called every Update to check whether or not to switch states.
     protected override void CheckSwitchStates()
     {
-        Vector3 headToPlayer = Context.Player.position - Context.HeadAnimator.transform.position;
+        Vector3 headToPlayer = Context.Player.position - Context.crystalTransform.transform.position;
 
         if (headToPlayer.sqrMagnitude <= 1)
         {
