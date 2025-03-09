@@ -69,8 +69,36 @@ public class Phase1 : BaseState<BossStateMachine>
         Context.AnimatorComp.ResetTrigger("Jump");
         Context.AnimatorComp.SetTrigger("Jump");
 
-        yield return new WaitForSeconds(5.5f);
+        yield return new WaitForSeconds(3f);
 
+        int spawnAmount = 200000;
+        float angleStep = 180f / (spawnAmount - 1);
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            float angle = -90f + i * angleStep;
+            Quaternion baseRotation = Context.transform.rotation * Quaternion.Euler(0, angle, 0);
+            Quaternion randomRotation = Quaternion.Euler(Random.Range(-10f, 10f), Random.Range(-30f, 30f), 0);
+            Quaternion finalRotation = baseRotation * randomRotation;
+
+            Vector3 spawnPosition = Context.transform.position + finalRotation * Vector3.forward * Random.Range(20f, 50f);
+            spawnPosition.y = 5;
+
+            float targetAngle = Random.Range(0f, 360f);
+            float targetRadius = Random.Range(1f, 50f);
+            Vector3 targetPosition = Context.Player.position + new Vector3(
+                Mathf.Cos(targetAngle * Mathf.Deg2Rad) * targetRadius,
+                0,
+                Mathf.Sin(targetAngle * Mathf.Deg2Rad) * targetRadius
+            );
+
+            GameObject projectile = GameObject.Instantiate(Context.ProjectilePf, spawnPosition, finalRotation);
+            projectile.GetComponent<ProjectileCollision>().Initialize(targetPosition);
+        }
+
+        yield return new WaitForSeconds(2.5f);
         throwProjectilesCoroutine = null;
     }
+
+
+
 }
