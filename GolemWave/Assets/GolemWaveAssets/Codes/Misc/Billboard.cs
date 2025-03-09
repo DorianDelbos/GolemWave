@@ -15,6 +15,8 @@ namespace GolemWave
 
             Vector3 direction = mainCamera.transform.forward;
             transform.forward = invertDirection ? -direction : direction;
+
+            transform.rotation = mainCamera.transform.rotation; 
         }
     }
 
