@@ -4,14 +4,12 @@ using UnityEngine;
 public class ProjectileCollision : MonoBehaviour
 {
     Rigidbody rb;
-
-    bool ignoreCollisions = true;
     float ignoreCollisionsTimer = 0f;
 
     public void Initialize(Vector3 targetPosition)
     {
         rb = GetComponent<Rigidbody>();
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<Collider>().enabled = false;
         LaunchProjectile(targetPosition);
     }
 
@@ -35,7 +33,7 @@ public class ProjectileCollision : MonoBehaviour
         ignoreCollisionsTimer += Time.deltaTime;
         if (ignoreCollisionsTimer > 1f)
         {
-            GetComponent<BoxCollider>().enabled = true;
+            GetComponent<Collider>().enabled = true;
         }
     }
 
@@ -51,6 +49,6 @@ public class ProjectileCollision : MonoBehaviour
             damageable.TakeDamage(5, impactPoint);
         }
 
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 5f);
     }
 }

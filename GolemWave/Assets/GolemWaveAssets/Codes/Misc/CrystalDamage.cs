@@ -8,7 +8,7 @@ namespace GolemWave
         [SerializeField] private int initialHealth;
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private TextHolder textHolderPrefab;
-        private float dissolveDuration = 2.0f;
+        private float dissolveDuration = 1.0f;
         private string cutoffProperty = "_Cutoff_Height";
 
         private HealthComponent healthComponent;

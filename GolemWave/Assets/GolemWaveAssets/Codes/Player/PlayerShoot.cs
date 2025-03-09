@@ -52,7 +52,7 @@ namespace GolemWave
 
         private Vector3 GetHeadDirection()
         {
-            Plane plane = new Plane(-Camera.main.transform.forward, transform.position + Camera.main.transform.forward * 6);
+            Plane plane = new Plane(-Camera.main.transform.forward, transform.position + Camera.main.transform.forward * 6 * 1.66f);
 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 

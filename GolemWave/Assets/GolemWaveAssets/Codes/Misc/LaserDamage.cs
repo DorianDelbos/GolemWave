@@ -16,6 +16,7 @@ namespace GolemWave
             {
                 Vector3 impactPoint = (damageable as MonoBehaviour).GetComponent<Collider>().ClosestPoint(transform.position);
                 damageable.TakeDamage(damages, impactPoint);
+
                 tickAudioSource.Play();
                 yield return new WaitForSeconds(timer);
             }

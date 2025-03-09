@@ -35,7 +35,10 @@ public class Phase1 : BaseState<BossStateMachine>
 
     protected override void EnterState()
     {
-
+        //foreach (var gravityZone in Context.GravityZones)
+        //{
+        //    gravityZone.SetActive(false);
+        //}
     }
 
     protected override void ExitState()
@@ -71,7 +74,7 @@ public class Phase1 : BaseState<BossStateMachine>
 
         yield return new WaitForSeconds(3f);
 
-        int spawnAmount = 200000;
+        int spawnAmount = 20;
         float angleStep = 180f / (spawnAmount - 1);
         for (int i = 0; i < spawnAmount; i++)
         {

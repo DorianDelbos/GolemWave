@@ -10,35 +10,48 @@
 //      }
 // }
 
-using StateMachine; // include all scripts about StateMachines
+using StateMachine;
+using UnityEngine; // include all scripts about StateMachines
 
 public class Phase2 : BaseState<BossStateMachine>
 {
     public Phase2(BossStateMachine currentContext, StateFactory<BossStateMachine> currentFactory)
         : base(currentContext, currentFactory) { }
-        
+
+    float spawnTimer;
+
     // This method will be called every Update to check whether or not to switch states.
     protected override void CheckSwitchStates()
     {
-        throw new System.NotImplementedException();
+        if (Context.HeelCrystal == null)
+        {
+            SwitchState(Factory.GetState<Phase3>());
+        }
     }
 
     // This method will be called only once before the update.
     protected override void EnterState()
     {
-        throw new System.NotImplementedException();
+        spawnTimer = 0;
     }
 
     // This method will be called only once after the last update.
     protected override void ExitState()
     {
-        throw new System.NotImplementedException();
+
     }
 
     // This method will be called every frame.
     protected override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        spawnTimer -= Time.deltaTime;
+
+        if (spawnTimer <= 0)
+        {
+            Vector2 randomCircle = Random.insideUnitSphere * 3f;
+            GameObject.Instantiate(Context.EnemyPf, Context.transform.position + Vector3.up * 5f + new Vector3(randomCircle.x, 0, randomCircle.y), Quaternion.identity);
+            spawnTimer = 3.5f;
+        }
     }
 
     // This method will be called on state switch.
