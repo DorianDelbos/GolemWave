@@ -43,15 +43,7 @@ public class Phase2 : BaseState<BossStateMachine>
 
     // This method will be called every frame.
     protected override void UpdateState()
-    {
-        spawnTimer -= Time.deltaTime;
-
-        if (spawnTimer <= 0)
-        {
-            Vector2 randomCircle = Random.insideUnitSphere * 3f;
-            GameObject.Instantiate(Context.EnemyPf, Context.transform.position + Vector3.up * 5f + new Vector3(randomCircle.x, 0, randomCircle.y), Quaternion.identity);
-            spawnTimer = 3.5f;
-        }
+    { 
     }
 
     // This method will be called on state switch.
@@ -61,4 +53,7 @@ public class Phase2 : BaseState<BossStateMachine>
         base.SwitchState(newState);
         Context.currentState = newState;
     }
+
+
+   
 }

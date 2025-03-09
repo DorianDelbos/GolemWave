@@ -11,6 +11,7 @@
 // }
 
 using StateMachine; // include all scripts about StateMachines
+using System.Collections;
 using UnityEngine;
 
 public class Phase3 : BaseState<BossStateMachine>
@@ -34,11 +35,17 @@ public class Phase3 : BaseState<BossStateMachine>
     // This method will be called only once before the update.
     protected override void EnterState()
     {
-        //foreach (var gravityZone in Context.GravityZones)
-        //{
-        //    gravityZone.SetActive(true);
-        //}
-        Context.transform.GetChild(0).position -= Context.transform.up * 5f;
+        foreach (var gravityZone in Context.GravityZones)
+        {
+            gravityZone.SetActive(true);
+        }
+
+        foreach (var enemy in Context.EnemiesList)
+        {
+            enemy.SetActive(true);
+        }
+
+        Context.StartCoroutine(DropRoutine());
     }
 
     // This method will be called only once after the last update.
@@ -59,5 +66,18 @@ public class Phase3 : BaseState<BossStateMachine>
     {
         base.SwitchState(newState);
         Context.currentState = newState;
+    }
+
+    IEnumerator DropRoutine()
+    {
+        Context.AnimatorComp.ResetTrigger("Down");
+        Context.AnimatorComp.SetTrigger("Down");
+
+        yield return new WaitForSeconds(2.2f);
+        Context.AnimatorComp.speed = 0;
+
+        while (Context.GravityZones[1].activeInHierarchy) yield return null;
+
+        Context.AnimatorComp.speed = 1;
     }
 }

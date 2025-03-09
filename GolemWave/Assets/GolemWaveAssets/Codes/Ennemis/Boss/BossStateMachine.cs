@@ -16,6 +16,7 @@ public class BossStateMachine : MonoBehaviour
 
     [Header("Phase 1")]
     [SerializeField] GameObject projectilePf;
+    [SerializeField] ParticleSystem shockwave;
 
     [Header("Phase 2")]
     [SerializeField] GameObject heelCrystal;
@@ -26,7 +27,7 @@ public class BossStateMachine : MonoBehaviour
 
     [Header("Phase 3")]
     [SerializeField] List<GameObject> crystals;
-
+    [SerializeField] List<GameObject> enemiesList;
 
     public Animator AnimatorComp { get; private set; }
     public Transform Player { get => player; private set => player = value; }
@@ -35,6 +36,8 @@ public class BossStateMachine : MonoBehaviour
     public GameObject EnemyPf { get => enemyPf; private set => enemyPf = value; }
     public GameObject[] GravityZones { get => gravityZones; private set => gravityZones = value; }
     public List<GameObject> Crystals { get => crystals; private set => crystals = value; }
+    public List<GameObject> EnemiesList { get => enemiesList; private set => enemiesList = value; }
+    public ParticleSystem Shockwave { get => shockwave; private set => shockwave = value; }
 
     void Start()
     {

@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserTransform: {fileID: 4196839954596232866}
   headTransform: {fileID: 4611321251998000616}
-  damages: 5
+  damages: 2
   healthBar: {fileID: 7049189124434027787}
   initialHealth: 100
   textHolderPrefab: {fileID: 218663217680152896, guid: 0f345ce3bf4764a479a4196c2b40c570, type: 3}

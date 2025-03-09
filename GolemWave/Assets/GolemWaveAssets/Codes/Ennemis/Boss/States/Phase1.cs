@@ -35,10 +35,10 @@ public class Phase1 : BaseState<BossStateMachine>
 
     protected override void EnterState()
     {
-        //foreach (var gravityZone in Context.GravityZones)
-        //{
-        //    gravityZone.SetActive(false);
-        //}
+        foreach (var gravityZone in Context.GravityZones)
+        {
+            gravityZone.SetActive(false);
+        }
     }
 
     protected override void ExitState()
@@ -73,6 +73,9 @@ public class Phase1 : BaseState<BossStateMachine>
         Context.AnimatorComp.SetTrigger("Jump");
 
         yield return new WaitForSeconds(3f);
+
+        Context.Shockwave.Stop();
+        Context.Shockwave.Play();
 
         int spawnAmount = 20;
         float angleStep = 180f / (spawnAmount - 1);
