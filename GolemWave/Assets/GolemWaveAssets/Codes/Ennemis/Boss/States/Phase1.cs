@@ -27,7 +27,7 @@ public class Phase1 : BaseState<BossStateMachine>
         alignedPlayerPos.y = Context.transform.position.y;
         Vector3 posToPlayer = alignedPlayerPos - Context.transform.position;
 
-        if (posToPlayer.sqrMagnitude <= 30 * 30 && throwProjectilesCoroutine == null)
+        if (posToPlayer.sqrMagnitude <= 50 * 50 && throwProjectilesCoroutine == null)
         {
             SwitchState(Factory.GetState<Phase2>());
         }

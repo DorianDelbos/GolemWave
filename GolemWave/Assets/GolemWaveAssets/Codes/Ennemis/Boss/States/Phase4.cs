@@ -11,6 +11,8 @@
 // }
 
 using StateMachine; // include all scripts about StateMachines
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Phase4 : BaseState<BossStateMachine>
 {
@@ -20,25 +22,31 @@ public class Phase4 : BaseState<BossStateMachine>
     // This method will be called every Update to check whether or not to switch states.
     protected override void CheckSwitchStates()
     {
-        throw new System.NotImplementedException();
+        Vector3 headToPlayer = Context.Player.position - Context.HeadAnimator.transform.position;
+
+        if (headToPlayer.sqrMagnitude <= 1)
+        {
+            SceneManager.LoadScene("EndScreen");
+        }
+
     }
 
     // This method will be called only once before the update.
     protected override void EnterState()
     {
-        throw new System.NotImplementedException();
+        Context.HeadAnimator.ResetTrigger("Open");
+        Context.HeadAnimator.SetTrigger("Open");
     }
 
     // This method will be called only once after the last update.
     protected override void ExitState()
     {
-        throw new System.NotImplementedException();
     }
 
     // This method will be called every frame.
     protected override void UpdateState()
     {
-        throw new System.NotImplementedException();
+
     }
 
     // This method will be called on state switch.

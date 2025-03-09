@@ -52,7 +52,6 @@ public class Phase3 : BaseState<BossStateMachine>
     // This method will be called only once after the last update.
     protected override void ExitState()
     {
-        SceneManager.LoadScene("EndScreen");
     }
 
     // This method will be called every frame.
