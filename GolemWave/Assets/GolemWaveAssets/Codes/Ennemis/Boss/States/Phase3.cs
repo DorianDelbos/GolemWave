@@ -13,6 +13,7 @@
 using StateMachine; // include all scripts about StateMachines
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Phase3 : BaseState<BossStateMachine>
 {
@@ -51,7 +52,7 @@ public class Phase3 : BaseState<BossStateMachine>
     // This method will be called only once after the last update.
     protected override void ExitState()
     {
-        Debug.Log("fini");
+        SceneManager.LoadScene("EndScreen");
     }
 
     // This method will be called every frame.
