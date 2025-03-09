@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tickAudioSource: {fileID: 5121592594162321851}
   damages: 5
+  timer: 0.1
 --- !u!1001 &3240517164839031978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -186,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 746209182ff4d8b4897d9e8b686d882d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 746209182ff4d8b4897d9e8b686d882d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -256,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 746209182ff4d8b4897d9e8b686d882d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 746209182ff4d8b4897d9e8b686d882d, type: 3}
       propertyPath: m_LocalRotation.w
