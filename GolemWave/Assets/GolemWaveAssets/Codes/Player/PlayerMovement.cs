@@ -33,7 +33,7 @@ namespace GolemWave
             controller.MovementDirection = playerDirectionInput;
             controller.ApplyMovement();
 
-            bodyTransform.localRotation = Quaternion.Lerp(bodyTransform.localRotation, targetRunRot, 10f * Time.deltaTime);
+            bodyTransform.localRotation = Quaternion.Lerp(bodyTransform.localRotation, targetRunRot, 10f * Time.fixedDeltaTime);
         }
 
         private void ReadMovement(InputAction.CallbackContext ctx)

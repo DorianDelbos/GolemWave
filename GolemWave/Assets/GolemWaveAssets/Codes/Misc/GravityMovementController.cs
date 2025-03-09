@@ -11,7 +11,7 @@ namespace GolemWave
 
         private Rigidbody rb;
         private Transform currentGravityZone = null;
-        private float gravityForce = 3.0f;
+        private float gravityForce = 9.81f;
 
         public float Speed { get => speed; set => speed = value; }
         public Vector3 CenterOfGravity { get; private set; }
@@ -46,10 +46,10 @@ namespace GolemWave
         public void ApplyMovement()
         {
             CalculateGravityDirection();
-            ApplyGravity();
             if (CompareTag("Player"))
                 HandleMovement();
             else HandleEnemyMovement(enemyScript.UpdateBool ? enemyScript.Player.position : rb.transform.position);
+            ApplyGravity();
             UpdatePlayerRotation();
         }
 
@@ -74,7 +74,7 @@ namespace GolemWave
 
         private void ApplyGravity()
         {
-            rb.AddForce(GravityDirection.normalized * gravityForce, ForceMode.Force);
+            rb.AddForce(GravityDirection.normalized * gravityForce * 100.0f * Time.deltaTime, ForceMode.Force);
         }
 
         private void HandleMovement()
