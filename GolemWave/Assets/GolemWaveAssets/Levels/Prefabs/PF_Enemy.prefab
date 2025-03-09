@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserTransform: {fileID: 4196839954596232866}
   headTransform: {fileID: 4611321251998000616}
+  damages: 5
   healthBar: {fileID: 7049189124434027787}
   initialHealth: 100
   textHolderPrefab: {fileID: 218663217680152896, guid: 0f345ce3bf4764a479a4196c2b40c570, type: 3}
@@ -420,6 +421,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8387223674315785860, guid: 90d18b59abc51ff448c20ad0ff3d6d34, type: 3}
+      propertyPath: timer
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8387223674315785860, guid: 90d18b59abc51ff448c20ad0ff3d6d34, type: 3}
       propertyPath: damages
       value: 5
       objectReference: {fileID: 0}
@@ -500,19 +505,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.7626087
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.025047377
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9992035
+      value: 0.6460266
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.03990436
+      value: -0.021218315
       objectReference: {fileID: 0}
     - target: {fileID: 4247502735854404188, guid: ad4d8de51bd0cfa43820659968e6284c, type: 3}
       propertyPath: m_AnchoredPosition.x

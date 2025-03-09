@@ -8,11 +8,21 @@ namespace GolemWave
         [Header("Attack")]
         [SerializeField] private Transform laserTransform;
         [SerializeField] private Transform headTransform;
+        [SerializeField] private int damages;
         private bool isShooting;
 
         private void ReadShoot(InputAction.CallbackContext ctx)
         {
             isShooting = ctx.ReadValueAsButton() && Time.timeScale > 0;
+        }
+
+        public void DealDamage(IDamageable damageable)
+        {
+            while (damageable.Health <= 0) return;
+
+            healthComponent.Health += 1;
+            Vector3 impactPoint = (damageable as MonoBehaviour).GetComponent<Collider>().ClosestPoint(transform.position);
+            damageable.TakeDamage(damages, impactPoint);
         }
 
         private void UpdateLaser()

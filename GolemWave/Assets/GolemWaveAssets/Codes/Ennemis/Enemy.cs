@@ -2,10 +2,11 @@ using UnityEngine;
 
 namespace GolemWave
 {
-    public partial class Enemy : MonoBehaviour, IDamageable
+    public partial class Enemy : MonoBehaviour, IDamageable, IAttacker
     {
         [SerializeField] private Transform laserTransform;
         [SerializeField] private Transform headTransform;
+        [SerializeField] private int damages;
         private Transform player;
         private Rigidbody rb;
         private Vector3 targetPoint;
@@ -70,6 +71,14 @@ namespace GolemWave
             targetPoint = rotatedPoint;
 
             newTargetTimer = 0.5f;
+        }
+
+        public void DealDamage(IDamageable damageable)
+        {
+            while (damageable.Health <= 0) return;
+
+            Vector3 impactPoint = (damageable as MonoBehaviour).GetComponent<Collider>().ClosestPoint(transform.position);
+            damageable.TakeDamage(damages, impactPoint);
         }
     }
 }

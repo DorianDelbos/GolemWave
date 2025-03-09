@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GolemWave
 {
-    public partial class Player : MonoBehaviour, IDamageable
+    public partial class Player : MonoBehaviour, IDamageable, IAttacker
     {
         [SerializeField] private PauseMenu pauseMenu;
 

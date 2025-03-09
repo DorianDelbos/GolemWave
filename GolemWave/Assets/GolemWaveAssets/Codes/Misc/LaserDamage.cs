@@ -7,17 +7,17 @@ namespace GolemWave
     {
         [SerializeField] private AudioSource tickAudioSource;
         [SerializeField] private int damages;
+        [SerializeField] private float timer = 0.1f;
         private Coroutine damageRoutine;
-        private float timer = 0.1f;
 
         private IEnumerator DamageRoutine(IDamageable damageable)
         {
             while (damageable.Health > 0)
             {
-                Vector3 impactPoint = (damageable as MonoBehaviour).GetComponent<Collider>().ClosestPoint(transform.position);
-                damageable.TakeDamage(damages, impactPoint);
-
                 tickAudioSource.Play();
+                IAttacker attacker = GetComponentInParent<IAttacker>();
+                attacker.DealDamage(damageable);
+
                 yield return new WaitForSeconds(timer);
             }
         }
