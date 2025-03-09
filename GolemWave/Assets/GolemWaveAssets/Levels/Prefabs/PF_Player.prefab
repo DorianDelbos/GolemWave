@@ -319,7 +319,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 3647185766186882905}
   initialHealth: 100
   hud: {fileID: 1198724271094234645}
-  jumpForce: 12
+  jumpForce: 15
   bodyTransform: {fileID: 1125617050130475406}
   laserTransform: {fileID: 156103252073759764}
   headTransform: {fileID: 4611321251998000616}
