@@ -44,7 +44,7 @@ namespace GolemWave
         private void ReadJump(InputAction.CallbackContext ctx)
         {
             if (!Physics.Raycast(transform.position, -transform.up, out RaycastHit _, 0.5f)) return;
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(transform.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
         }
 
         private void StartRun(InputAction.CallbackContext ctx)
